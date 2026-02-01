@@ -1,61 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Be My Valentine 💖</title>
-
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffd6e0, #fff1f5);
-  font-family: Arial, sans-serif;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  width: 320px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-h2 {
-  margin-bottom: 25px;
-}
-
-button {
-  padding: 12px 22px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-}
-
-#yes {
-  background: #ff4d6d;
-  color: white;
-}
-
-#no {
-  background: #ddd;
-  position: absolute;
-}
-</style>
-</head>
-
-<body>
-
-<div class="card" id="card">
-  <h2>Harshita, will you be my Valentine? 💕</h2>
-
-  <button id="yes" onclick="yesClicked()">Yes 💖</button>
-  <button id="no">No 🙈</button>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 const noBtn = document.getElementById("no");
@@ -72,12 +15,32 @@ function moveNo() {
 function yesClicked() {
   document.getElementById("card").innerHTML = `
     <h2>YAYYYY!! 🎉💖</h2>
-    <p>I knew you’d say YES 😍</p>
+    <p>Harshita, you made me the happiest 😍</p>
     <img src="https://media.giphy.com/media/l4JySAWfMaY7w88sU/giphy.gif"
          style="width:100%; border-radius:12px; margin-top:15px;">
   `;
+
+  fireCrackers();
+}
+
+function fireCrackers() {
+  const duration = 3 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 8,
+      angle: Math.random() * 360,
+      spread: 360,
+      origin: {
+        x: Math.random(),
+        y: Math.random() - 0.2
+      }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
 }
 </script>
-
-</body>
-</html>
