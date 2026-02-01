@@ -5,53 +5,44 @@
 <title>Be My Valentine 💖</title>
 
 <style>
-  body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: linear-gradient(135deg, #ffd6e0, #fff1f5);
-    font-family: Arial, sans-serif;
-    overflow:hidden;
-  }
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #ffd6e0, #fff1f5);
+  font-family: Arial, sans-serif;
+  overflow:hidden;
+}
 
-  .card{
-    background:#fff;
-    padding:30px;
-    width:320px;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 20px 40px rgba(0,0,0,0.15);
-    position:relative;
-    z-index:2;
-  }
+.card{
+  background:#fff;
+  padding:30px;
+  width:320px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
 
-  h2{ margin-bottom:25px; }
+h2{ margin-bottom:25px; }
 
-  button{
-    padding:12px 22px;
-    font-size:16px;
-    border-radius:25px;
-    border:none;
-    cursor:pointer;
-  }
+button{
+  padding:12px 22px;
+  font-size:16px;
+  border-radius:25px;
+  border:none;
+  cursor:pointer;
+}
 
-  #yes{
-    background:#ff4d6d;
-    color:#fff;
-  }
+#yes{ background:#ff4d6d; color:#fff; }
+#no{ background:#ddd; position:absolute; }
 
-  #no{
-    background:#ddd;
-    position:absolute;
-  }
-
-  img{
-    width:100%;
-    border-radius:12px;
-    margin-top:15px;
-  }
+img{
+  width:100%;
+  border-radius:12px;
+  margin-top:15px;
+}
 </style>
 </head>
 
@@ -64,47 +55,43 @@
 </div>
 
 <script>
-  // NO button runs away
-  const noBtn = document.getElementById("no");
+const noBtn = document.getElementById("no");
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
 
-  noBtn.addEventListener("mouseover", moveNo);
-  noBtn.addEventListener("touchstart", moveNo);
+function moveNo(){
+  const x = Math.random()*250 - 125;
+  const y = Math.random()*250 - 125;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
 
-  function moveNo() {
-    const x = Math.random() * 250 - 125;
-    const y = Math.random() * 250 - 125;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-  }
+function yesClicked(){
+  document.getElementById("card").innerHTML = `
+    <h2>YAYYYY!! 🎉💖</h2>
+    <p>I knew you’d say YES 😍</p>
+    <img src="https://media.giphy.com/media/l4JySAWfMaY7w88sU/giphy.gif">
+  `;
 
-  // YES clicked: show celebration + open email draft
-  function yesClicked() {
-    document.getElementById("card").innerHTML = `
-      <h2>YAYYYY!! 🎉💖</h2>
-      <p>I knew you’d say YES 😍</p>
-      <img src="https://media.giphy.com/media/l4JySAWfMaY7w88sU/giphy.gif" alt="Celebration">
-    `;
+  setTimeout(openDraft, 1200);
+}
 
-    // Wait a bit, then open email draft
-    setTimeout(sendMail, 1200);
-  }
+function openDraft(){
+  const to = "harshitatripathi3010@gmail.com";
+  const subject = encodeURIComponent("Valentine Invitation 💖");
+  const body = encodeURIComponent(
+    "Hi Harshita ❤️\n\n" +
+    "This is a little official invite 😉\n\n" +
+    "You are invited to be my Valentine 💕\n" +
+    "Let’s make it special together ✨\n\n" +
+    "— Shubham"
+  );
 
-  function sendMail() {
-    const subject = encodeURIComponent("Valentine Invitation 💖");
-    const body = encodeURIComponent(
-      "Hi Harshita ❤️\n\n" +
-      "This is your official invite 😉\n\n" +
-      "You are invited to be my Valentine 💕\n" +
-      "Let’s make it special together ✨\n\n" +
-      "— Shubham"
-    );
-
-    // To = her email, CC = your email
-    window.location.href =
-      "mailto:harshitatripathi3010@gmail.com" +
-      "?cc=shubhamkrkashyap@gmail.com" +
-      "&subject=" + subject +
-      "&body=" + body;
-  }
+  // Opens Gmail compose AS YOU (if logged in) → closing tab auto-saves draft
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`,
+    "_blank"
+  );
+}
 </script>
 
 </body>
