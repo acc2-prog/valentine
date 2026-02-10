@@ -1,2 +1,2 @@
 # valentine
-Will you be my Valentine 💕
+Happy Teddy Day 💕
